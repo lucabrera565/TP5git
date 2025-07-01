@@ -1,0 +1,101 @@
+#include<iostream>
+using namespace std;
+
+// estructura del nodo
+struct Nodo{
+    int dato;
+    Nodo* siguiente;
+};
+
+// clase lista simple
+class Lista{
+private:
+    Nodo* inicio;
+
+public:
+    Lista(){
+        inicio=nullptr;
+    }
+
+    void agregarFinal(int valor){
+        Nodo* nuevo=new Nodo;
+        nuevo->dato=valor;
+        nuevo->siguiente=nullptr;
+
+        if(inicio==nullptr){
+            inicio=nuevo;
+        }else{
+            Nodo* actual=inicio;
+            while(actual->siguiente!=nullptr){
+                actual=actual->siguiente;
+            }
+            actual->siguiente=nuevo;
+        }
+    }
+
+    void mostrarLista(){
+        Nodo* actual=inicio;
+        while(actual!=nullptr){
+            cout<<actual->dato<<" ";
+            actual=actual->siguiente;
+        }
+        cout<<endl;
+    }
+
+    int contarPares(){
+        int contador=0;
+        Nodo* actual=inicio;
+        while(actual!=nullptr){
+            if(actual->dato%2==0){
+                contador++;
+            }
+            actual=actual->siguiente;
+        }
+        return contador;
+    }
+
+    int contarImpares(){
+        int contador=0;
+        Nodo* actual=inicio;
+        while(actual!=nullptr){
+            if(actual->dato%2!=0){
+                contador++;
+            }
+            actual=actual->siguiente;
+        }
+        return contador;
+    }
+};
+
+int main(){
+    Lista lista;
+    int opcion, valor;
+    bool salir=false;
+
+    while(!salir){
+        cout<<"\n--- MENU LISTA PARES E IMPARES ---"<<endl;
+        cout<<"1. Agregar valor"<<endl;
+        cout<<"2. Mostrar lista"<<endl;
+        cout<<"3. Contar pares"<<endl;
+        cout<<"4. Contar impares"<<endl;
+        cout<<"5. Salir"<<endl;
+        cout<<"Seleccione una opcion: ";
+        cin>>opcion;
+
+        if(opcion==1){
+            cout<<"Ingrese un numero: ";
+            cin>>valor;
+            lista.agregarFinal(valor);
+        }else if(opcion==2){
+            lista.mostrarLista();
+        }else if(opcion==3){
+            cout<<"Cantidad de pares: "<<lista.contarPares()<<endl;
+        }else if(opcion==4){
+            cout<<"Cantidad de impares: "<<lista.contarImpares()<<endl;
+        }else if(opcion==5){
+            salir=true;
+        }else{
+            cout<<"Opcion invalida"<<endl;
+        }
+    }
+}
