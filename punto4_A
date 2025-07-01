@@ -1,0 +1,83 @@
+#include<iostream>
+using namespace std;
+
+const int MAX=100;
+
+// estructura de pila con lista simple (tipo entero)
+struct Nodo{
+    int dato;
+    Nodo* siguiente;
+};
+
+class Pila{
+private:
+    Nodo* cima;
+public:
+    Pila(){
+        cima=nullptr;
+    }
+
+    bool pilaVacia(){
+        return cima==nullptr;
+    }
+
+    void apilar(int valor){
+        Nodo* nuevo=new Nodo;
+        nuevo->dato=valor;
+        nuevo->siguiente=cima;
+        cima=nuevo;
+    }
+
+    bool desapilar(){
+        if(pilaVacia()){
+            cout<<"La pila esta vacia"<<endl;
+            return false;
+        }else{
+            Nodo* borrado=cima;
+            cima=cima->siguiente;
+            delete borrado;
+            return true;
+        }
+    }
+
+    void mostrarPila(){
+        Nodo* actual=cima;
+        cout<<"Elementos en la pila: ";
+        while(actual!=nullptr){
+            cout<<actual->dato<<" ";
+            actual=actual->siguiente;
+        }
+        cout<<endl;
+    }
+};
+
+int main(){
+    Pila pila;
+    int opcion, valor;
+    bool salir=false;
+
+    while(!salir){
+        cout<<"\n--- MENU PILA ---"<<endl;
+        cout<<"1. Apilar"<<endl;
+        cout<<"2. Desapilar"<<endl;
+        cout<<"3. Mostrar pila"<<endl;
+        cout<<"4. Salir"<<endl;
+        cout<<"Seleccione una opcion: ";
+        cin>>opcion;
+
+        if(opcion==1){
+            cout<<"Ingrese valor: ";
+            cin>>valor;
+            pila.apilar(valor);
+        }else if(opcion==2){
+            pila.desapilar();
+        }else if(opcion==3){
+            pila.mostrarPila();
+        }else if(opcion==4){
+            salir=true;
+        }else{
+            cout<<"Opcion invalida"<<endl;
+        }
+    }
+}
+
