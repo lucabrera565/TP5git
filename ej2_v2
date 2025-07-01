@@ -1,0 +1,149 @@
+#include<iostream>
+using namespace std;
+
+// estructura del nodo
+struct Nodo{
+    int dato;
+    Nodo* siguiente;
+};
+
+// estructura de la lista con inicio, fin y contador
+class Lista{
+private:
+    Nodo* inicio;
+    Nodo* fin;
+    int contador;
+
+public:
+    Lista(){
+        inicio=nullptr;
+        fin=nullptr;
+        contador=0;
+    }
+
+    bool estaVacia(){
+        return contador==0;
+    }
+
+    void agregarFinal(int valor){
+        Nodo* nuevo=new Nodo;
+        nuevo->dato=valor;
+        nuevo->siguiente=nullptr;
+
+        if(estaVacia()){
+            inicio=nuevo;
+            fin=nuevo;
+        }else{
+            fin->siguiente=nuevo;
+            fin=nuevo;
+        }
+        contador++;
+    }
+
+    void mostrarLista(){
+        Nodo* actual=inicio;
+        while(actual!=nullptr){
+            cout<<actual->dato<<" ";
+            actual=actual->siguiente;
+        }
+        cout<<endl;
+    }
+
+    bool eliminarInicio(){
+        if(estaVacia()){
+            cout<<"La lista esta vacia"<<endl;
+            return false;
+        }else{
+            Nodo* borrado=inicio;
+            inicio=inicio->siguiente;
+            delete borrado;
+            contador--;
+
+            if(inicio==nullptr){
+                fin=nullptr;
+            }
+            return true;
+        }
+    }
+
+    int cantidadElementos(){
+        return contador;
+    }
+
+    int buscarIndice(int valor){
+        Nodo* actual=inicio;
+        int indice=0;
+        while(actual!=nullptr){
+            if(actual->dato==valor){
+                return indice;
+            }
+            actual=actual->siguiente;
+            indice++;
+        }
+        return -1;
+    }
+
+    Nodo* buscarPorIndice(int pos){
+        if(pos<0||pos>=contador){
+            return nullptr;
+        }
+        Nodo* actual=inicio;
+        for(int i=0;i<pos;i++){
+            actual=actual->siguiente;
+        }
+        return actual;
+    }
+};
+
+int main(){
+    Lista lista;
+    int opcion, valor, indice;
+    bool salir=false;
+
+    while(!salir){
+        cout<<"\n--- MENU LISTA CON FINAL Y CONTADOR ---"<<endl;
+        cout<<"1. Agregar al final"<<endl;
+        cout<<"2. Mostrar lista"<<endl;
+        cout<<"3. Eliminar inicio"<<endl;
+        cout<<"4. Mostrar cantidad de elementos"<<endl;
+        cout<<"5. Buscar indice de un valor"<<endl;
+        cout<<"6. Buscar valor por indice"<<endl;
+        cout<<"7. Salir"<<endl;
+        cout<<"Seleccione una opcion: ";
+        cin>>opcion;
+
+        if(opcion==1){
+            cout<<"Ingrese un valor: ";
+            cin>>valor;
+            lista.agregarFinal(valor);
+        }else if(opcion==2){
+            lista.mostrarLista();
+        }else if(opcion==3){
+            lista.eliminarInicio();
+        }else if(opcion==4){
+            cout<<"Cantidad de elementos: "<<lista.cantidadElementos()<<endl;
+        }else if(opcion==5){
+            cout<<"Ingrese valor a buscar: ";
+            cin>>valor;
+            indice=lista.buscarIndice(valor);
+            if(indice!=-1){
+                cout<<"Valor encontrado en posicion: "<<indice<<endl;
+            }else{
+                cout<<"Valor no encontrado"<<endl;
+            }
+        }else if(opcion==6){
+            cout<<"Ingrese indice a buscar: ";
+            cin>>indice;
+            Nodo* nodo=lista.buscarPorIndice(indice);
+            if(nodo!=nullptr){
+                cout<<"Valor en posicion "<<indice<<": "<<nodo->dato<<endl;
+            }else{
+                cout<<"Indice invalido"<<endl;
+            }
+        }else if(opcion==7){
+            salir=true;
+        }else{
+            cout<<"Opcion invalida"<<endl;
+        }
+    }
+}
