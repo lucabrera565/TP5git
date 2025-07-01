@@ -1,0 +1,12 @@
+//enigma-> acciones que realizan: Recorre la lista hasta el final de forma recursiva, y al volver muestra los datos
+//proposito: Imprimir los datos de la lista en orden inverso (desde el ultimo nodo al primero)
+//________________________________________
+//misterio -> acciones que realizan: Recorre la lista completa hasta que llega a nullptr, y al volver suma +1 en cada paso
+//proposito: calcular la cantidad de nodos en la lista
+//________________________________________
+//desconocido -> acciones que realizan: Llega hasta el ultimo nodo de la lista y lo devuelve
+//proposito: Devolver el ultimo nodo de la lista
+
+
+
+
