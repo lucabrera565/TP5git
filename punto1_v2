@@ -1,0 +1,104 @@
+#include <iostream>
+using namespace std;
+
+// estructura del nodo
+struct Nodo {
+    int dato;
+    Nodo* siguiente;
+};
+
+// estructura de la lista
+class Lista {
+private:
+    Nodo* inicio;
+
+public:
+    Lista() {
+        inicio = nullptr;
+    }
+
+    bool estaVacia() {
+        return inicio == nullptr;
+    }
+
+    void agregarInicio(int valor) {
+        Nodo* nuevo = new Nodo;
+        nuevo->dato = valor;
+        nuevo->siguiente = inicio;
+        inicio = nuevo;
+    }
+
+    void mostrarLista() {
+        Nodo* actual = inicio;
+        while (actual != nullptr) {
+            cout << actual->dato << " ";
+            actual = actual->siguiente;
+        }
+        cout << endl;
+    }
+
+    bool eliminarInicio() {
+        if (estaVacia()) {
+            cout << "La lista ya esta vacia" << endl;
+            return false;
+        } else {
+            Nodo* borrado = inicio;
+            inicio = inicio->siguiente;
+            delete borrado;
+            return true;
+        }
+    }
+
+    int minimo() {
+        if (estaVacia()) {
+            cout << "La lista esta vacia" << endl;
+            return -1;
+        }
+
+        Nodo* actual = inicio;
+        int min = actual->dato;
+        while (actual != nullptr) {
+            if (actual->dato < min) {
+                min = actual->dato;
+            }
+            actual = actual->siguiente;
+        }
+        return min;
+    }
+};
+
+int main() {
+    Lista lista;
+    int opcion, valor;
+    bool salir = false;
+
+    while (!salir) {
+        cout << "\n--- MENU LISTA SIMPLE ---" << endl;
+        cout << "1. Agregar al inicio" << endl;
+        cout << "2. Mostrar lista" << endl;
+        cout << "3. Eliminar inicio" << endl;
+        cout << "4. Mostrar minimo" << endl;
+        cout << "5. Salir" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        if (opcion == 1) {
+            cout << "Ingrese un valor: ";
+            cin >> valor;
+            lista.agregarInicio(valor);
+        } else if (opcion == 2) {
+            lista.mostrarLista();
+        } else if (opcion == 3) {
+            lista.eliminarInicio();
+        } else if (opcion == 4) {
+            int min = lista.minimo();
+            if (min != -1) {
+                cout << "El valor minimo es: " << min << endl;
+            }
+        } else if (opcion == 5) {
+            salir = true;
+        } else {
+            cout <<"Opcion invalida"<< endl;
+        }
+    }
+}
