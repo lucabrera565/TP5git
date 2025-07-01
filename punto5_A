@@ -1,0 +1,95 @@
+#include<iostream>
+using namespace std;
+
+// estructura del nodo
+struct Nodo{
+    int dato;
+    Nodo* siguiente;
+};
+
+// clase lista simple
+class Lista{
+private:
+    Nodo* inicio;
+
+public:
+    Lista(){
+        inicio=nullptr;
+    }
+
+    void agregarFinal(int valor){
+        Nodo* nuevo=new Nodo;
+        nuevo->dato=valor;
+        nuevo->siguiente=nullptr;
+
+        if(inicio==nullptr){
+            inicio=nuevo;
+        }else{
+            Nodo* actual=inicio;
+            while(actual->siguiente!=nullptr){
+                actual=actual->siguiente;
+            }
+            actual->siguiente=nuevo;
+        }
+    }
+
+    void mostrarLista(){
+        Nodo* actual=inicio;
+        while(actual!=nullptr){
+            cout<<actual->dato<<" ";
+            actual=actual->siguiente;
+        }
+        cout<<endl;
+    }
+
+    void ordenarSeleccion(){
+        Nodo* i=inicio;
+        while(i!=nullptr){
+            Nodo* min=i;
+            Nodo* j=i->siguiente;
+            while(j!=nullptr){
+                if(j->dato<min->dato){
+                    min=j;
+                }
+                j=j->siguiente;
+            }
+            if(min!=i){
+                int temp=i->dato;
+                i->dato=min->dato;
+                min->dato=temp;
+            }
+            i=i->siguiente;
+        }
+    }
+};
+
+int main(){
+    Lista lista;
+    int opcion, valor;
+    bool salir=false;
+
+    while(!salir){
+        cout<<"\n--- MENU LISTA ORDENAR ---"<<endl;
+        cout<<"1. Agregar al final"<<endl;
+        cout<<"2. Mostrar lista"<<endl;
+        cout<<"3. Ordenar por seleccion"<<endl;
+        cout<<"4. Salir"<<endl;
+        cout<<"Seleccione una opcion: ";
+        cin>>opcion;
+
+        if(opcion==1){
+            cout<<"Ingrese un numero: ";
+            cin>>valor;
+            lista.agregarFinal(valor);
+        }else if(opcion==2){
+            lista.mostrarLista();
+        }else if(opcion==3){
+            lista.ordenarSeleccion();
+            cout<<"Lista ordenada por seleccion."<<endl;
+        }else if(opcion==4){
+            salir=true;
+        }else{
+            cout<<"Opcion invalida"<<endl;
+        }
+    }
+}

@@ -55,5 +55,13 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false
+  "C_Cpp_Runner.msvcSecureNoWarnings": false,
+  "files.associations": {
+    "ej2": "cpp",
+    "punto1": "cpp",
+    "punto1_v2": "cpp",
+    "punto3_a": "cpp",
+    "punto3_b": "cpp",
+    "punto5_a": "cpp"
+  }
 }
